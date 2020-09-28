@@ -138,6 +138,92 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-mysql/Linux MySQL 5.7二进制 小版本快速升级" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/blog/2020/09/28/mysql/Linux MySQL 5.7二进制 小版本快速升级/">Linux MySQL 5.7二进制 小版本快速升级</a>
+    </h1>
+  
+
+        
+        <a href="/blog/2020/09/28/mysql/Linux MySQL 5.7二进制 小版本快速升级/" class="archive-article-date">
+  	<time datetime="2020-09-28T03:08:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><br></p>
+<p><strong>注意，文中的目录路径请根据实际情况修改。</strong><br>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/blog/categories/mysql//" class="article-tag-list-link color1">mysql</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2020/09/28/mysql/Linux MySQL 5.7二进制 小版本快速升级/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-mysql/This-function-has-none-of-DETERMINISTIC-NO-SQL-or-READS-SQL-DATA-in-its-declaration-and-binary-log" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -159,9 +245,31 @@
     <div class="article-entry" itemprop="articleBody">
       
         <ul>
-<li><h3 id="出错信息"><a href="#出错信息" class="headerlink" title="出错信息"></a>出错信息</h3>This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you <em>might</em> want to use the less safe log_bin_trust_function_creators variable)</li>
+<li><h3 id="出错信息"><a href="#出错信息" class="headerlink" title="出错信息"></a>出错信息</h3><p>This function has none of DETERMINISTIC, NO SQL, or READS SQL DATA in its declaration and binary logging is enabled (you <em>might</em> want to use the less safe log_bin_trust_function_creators variable)</p>
+</li>
+<li><h3 id="出错原因"><a href="#出错原因" class="headerlink" title="出错原因"></a>出错原因</h3><p>开启了bin-log但是创建函数/存储过程时未指定类型</p>
+</li>
+<li><h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p><strong>1. 指定函数类型</strong></p>
+</li>
 </ul>
-        
+<p>在创建函数时在声明后面指定类型，如：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> DEFINER=<span class="string">`root`</span>@<span class="string">`%`</span> <span class="keyword">FUNCTION</span> <span class="string">`functionName`</span>(<span class="string">`var1`</span> <span class="built_in">varchar</span>(<span class="number">2000</span>)) <span class="keyword">RETURNS</span> <span class="built_in">varchar</span>(<span class="number">2000</span>) <span class="keyword">CHARSET</span> utf8mb4 <span class="keyword">READS</span> <span class="keyword">SQL</span> <span class="keyword">DATA</span></span><br><span class="line"><span class="keyword">BEGIN</span></span><br><span class="line">	...</span><br><span class="line"><span class="keyword">END</span>;</span><br></pre></td></tr></table></figure>
+<p>可选类型：</p>
+<ol>
+<li>DETERMINISTIC 不确定的</li>
+<li>NO SQL 没有SQl语句，当然也不会修改数据</li>
+<li>READS SQL DATA 只是读取数据，当然也不会修改数据</li>
+<li>MODIFIES SQL DATA 要修改数据</li>
+<li>CONTAINS SQL 包含了SQL语句</li>
+</ol>
+<p><strong>2. 临时修改配置（数据库重启失效）</strong></p>
+<p>连接数据库执行以下语句临时修改配置：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> <span class="keyword">global</span> log_bin_trust_function_creators=<span class="literal">TRUE</span>;</span><br></pre></td></tr></table></figure>
+<p><strong>3. 修改数据库配置文件</strong></p>
+<p>在 [mysqld] 加入以下内容并重启数据库：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">log_bin_trust_function_creators=1</span><br></pre></td></tr></table></figure>
+<p><br><br><br><br>参考文章：<br><br><a href="https://blog.csdn.net/topasstem8/article/details/8216740" target="_blank" rel="noopener">https://blog.csdn.net/topasstem8/article/details/8216740</a><br><br><a href="https://www.jb51.net/article/97037.htm" target="_blank" rel="noopener">https://www.jb51.net/article/97037.htm</a></p>
+
       
 
       
@@ -260,7 +368,28 @@
 <li>默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空）</li>
 <li>结合 @Qualifier(“beanName”) 可实现按名称装配</li>
 </ol>
-        
+<h2 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h2><ol>
+<li>jdk提供</li>
+<li>属性：name、type</li>
+<li>作用范围：字段、setter方法</li>
+<li>默认按名称(by-name)装配，名称可以通过name属性指定  <ul>
+<li>未指定name的情况下：<ol>
+<li>当注解在字段上时，默认取name=字段名称装配</li>
+<li>当注解在setter方法上时，默认取name=属性名称装配</li>
+</ol>
+</li>
+<li>若按照名称未匹配，则自动按类型匹配</li>
+</ul>
+</li>
+<li>装配顺序<ul>
+<li>同时指定name和type属性：则找到唯一匹配的bean装配，未找到则抛异常</li>
+<li>指定name属性：按照名称(by-name)装配，未找到则抛异常</li>
+<li>指定type属性：按照类型(by-type)装配，未找到或者找到多个则抛异常</li>
+<li>未指定name属性又未指定type属性：先按照名称(by-name)装配，如果未找到，则按照类型(by-type)装配  </li>
+</ul>
+</li>
+</ol>
+
       
 
       

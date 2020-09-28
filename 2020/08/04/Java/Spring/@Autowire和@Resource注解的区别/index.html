@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://chenwx.site/blog">
   <title>@Autowire和@Resource注解的区别 | chenwx&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="@Autowire spring提供   属性：required 作用范围：字段、setter方法、构造器上 默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空） 结合 @Qualifier(“beanName”) 可实现按名称装配">
+  <meta name="description" content="@Autowire spring提供   属性：required 作用范围：字段、setter方法、构造器上 默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空） 结合 @Qualifier(“beanName”) 可实现按名称装配  @Resource jdk提供 属性：name、type 作用范围：字段、setter方法 默认按名称(by-nam">
 <meta name="keywords" content="Java,Spring">
 <meta property="og:type" content="article">
 <meta property="og:title" content="@Autowire和@Resource注解的区别">
 <meta property="og:url" content="http://chenwx.site/blog/2020/08/04/Java/Spring/@Autowire和@Resource注解的区别/index.html">
 <meta property="og:site_name" content="chenwx&#39;s blog">
-<meta property="og:description" content="@Autowire spring提供   属性：required 作用范围：字段、setter方法、构造器上 默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空） 结合 @Qualifier(“beanName”) 可实现按名称装配">
+<meta property="og:description" content="@Autowire spring提供   属性：required 作用范围：字段、setter方法、构造器上 默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空） 结合 @Qualifier(“beanName”) 可实现按名称装配  @Resource jdk提供 属性：name、type 作用范围：字段、setter方法 默认按名称(by-nam">
 <meta property="og:locale" content="z-Hans">
-<meta property="og:updated_time" content="2020-09-26T10:17:26.712Z">
+<meta property="og:updated_time" content="2020-09-28T03:11:33.706Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="@Autowire和@Resource注解的区别">
-<meta name="twitter:description" content="@Autowire spring提供   属性：required 作用范围：字段、setter方法、构造器上 默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空） 结合 @Qualifier(“beanName”) 可实现按名称装配">
+<meta name="twitter:description" content="@Autowire spring提供   属性：required 作用范围：字段、setter方法、构造器上 默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空） 结合 @Qualifier(“beanName”) 可实现按名称装配  @Resource jdk提供 属性：name、type 作用范围：字段、setter方法 默认按名称(by-nam">
   
     <link rel="alternative" href="/atom.xml" title="chenwx&#39;s blog" type="application/atom+xml">
   
@@ -164,7 +164,6 @@
 <li>默认按类型（by-type）装配且对象不可为空（可设置 required=false 允许对象为空）</li>
 <li>结合 @Qualifier(“beanName”) 可实现按名称装配</li>
 </ol>
-<a id="more"></a>
 <h2 id="Resource"><a href="#Resource" class="headerlink" title="@Resource"></a>@Resource</h2><ol>
 <li>jdk提供</li>
 <li>属性：name、type</li>
